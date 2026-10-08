@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import PayCategory, Payment
 
-# Register your models here.
+admin.site.register(Payment)
+admin.site.register(PayCategory)

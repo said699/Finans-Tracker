@@ -136,4 +136,4 @@ MAILERS = {
     },
 }
 
-AUTH_USER_MODEL = 'apps.users.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
