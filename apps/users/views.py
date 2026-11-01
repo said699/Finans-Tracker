@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class RegisterUserView(generic.CreateView):
     form_class = RegisterForm
     template_name = 'users/register.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('finans:home')
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -19,7 +19,4 @@ class RegisterUserView(generic.CreateView):
 class LoginUserView(LoginView):
     form_class = LoginForm
     template_name = 'users/login.html'
-
-class HomeView(generic.TemplateView, LoginRequiredMixin):
-    template_name = 'users/home.html'
 

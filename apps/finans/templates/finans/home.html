@@ -1,0 +1,23 @@
+{% extends 'users/base.html' %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+    <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Exit from account</button>
+    </form>
+    <h1>Hi {{ request.user }}! Here is the history of your payments</h1>
+    <ul>
+        {% for payment in payments %}
+            <li>
+                <h1>{{ payment.category.color }}{{ payment.category.name }}</h1>
+                <p>{{ payment.date_done }}</p>
+                <a href="{% url 'finans:payment_details' payment.pk %}">See more</a>
+            </li>
+        {% empty %}
+            <p>You haven't done any payment</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'finans:add_payment' %}">New payment?</a>
+{% endblock %}

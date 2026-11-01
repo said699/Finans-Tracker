@@ -1,0 +1,13 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Details of payment{% endblock %}
+
+{% block content %}
+    <h1>Here is information about payment which you have selected</h1>
+    <div class="pay-info">
+        <p>Date of done: {{ payment.date_done }}</p>
+        <p>Amount: {{ payment.amount }}</p>
+        <p>Currency: {{ payment.currency }}</p>
+        <p>Category: {{ payment.category.color }}{{ payment.category.name }}</p>
+    </div>
+{% endblock %}
