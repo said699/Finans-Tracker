@@ -1,13 +1,13 @@
 {% extends 'users/base.html' %}
 
-{% block title %}Details of payment{% endblock %}
+{% block title %}Детали платежа{% endblock %}
 
 {% block content %}
-    <h1>Here is information about payment which you have selected</h1>
+    <h1>Информация о выбранной вами платежке</h1>
     <div class="pay-info">
-        <p>Date of done: {{ payment.date_done }}</p>
-        <p>Amount: {{ payment.amount }}</p>
-        <p>Currency: {{ payment.currency }}</p>
-        <p>Category: {{ payment.category.color }}{{ payment.category.name }}</p>
-    </div>
+        <p>Дата выполнения: {{ payment.date_done }}</p>
+        <p>Сумма: {{ payment.amount }}</p>
+        <p>Валюта: {{ payment.currency }}</p>
+        <span class="color-dot" style="background-color: {{ payment.category.color }};"></span><span>{{ payment.category.name }}</span>
+
 {% endblock %}

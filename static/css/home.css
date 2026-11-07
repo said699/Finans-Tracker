@@ -1,0 +1,115 @@
+/* Основные стили страницы и контейнера */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для кнопок выхода и навигации */
+button,
+.btn {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+    background-color: #c0392b;
+}
+
+/* Стили для ссылок */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для категорий и бейджей */
+.category-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* Стили для списков платежей */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #fafafa;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #e1e1e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Стили для форм (добавление категорий и платежей) */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Специальный стиль для палитры выбора цвета */
+input[type="color"] {
+    border: none;
+    width: 50px;
+    height: 35px;
+    cursor: pointer;
+    background: none;
+}
+
+.color-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%; /* Делает элемент круглым */
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Тонкая рамка, чтобы светлые цвета (как белый #FFFFFF) не сливались с фоном */
+}

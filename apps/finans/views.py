@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from .forms import AddPaymentForm, AddCategoryForm
 from .models import PayCategory, Payment
@@ -9,7 +9,7 @@ class AddCategoryView(generic.CreateView, LoginRequiredMixin):
     model = PayCategory
     template_name = 'finans/addcategory.html'
     form_class = AddCategoryForm
-    success_url = 'http://127.0.0.1:8000/acc/home/'
+    success_url = 'http://127.0.0.1:8000/finans/home/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -43,3 +43,9 @@ class PaymentDetView(generic.DetailView, LoginRequiredMixin):
     template_name = 'finans/paymentdet.html'
     context_object_name = 'payment'
 
+def payment_delete(request, pk):
+    payment = get_object_or_404(Payment, pk=pk, user=request.user)
+    if request.method == 'POST':
+        payment.delete()
+        return redirect('finans:home')
+    return redirect('finans:home')

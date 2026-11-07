@@ -1,16 +1,16 @@
 {% extends 'users/base.html' %}
 
-{% block title %}Add payment{% endblock %}
+{% block title %}Добавление платежа{% endblock %}
 
 {% block content %}
-    <h1>Form for add a new payment</h1>
+    <h1>Добавление платежа</h1>
 
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save new payment</button>
+        <button type="submit">Сохранить</button>
     </form>
 
     <br>
-    <a href="{% url 'finans:home' %}">Back to home</a>
+    <a href="{% url 'finans:home' %}">Назад</a>
 {% endblock %}

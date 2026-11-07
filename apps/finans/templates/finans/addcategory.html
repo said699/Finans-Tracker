@@ -1,16 +1,16 @@
 {% extends 'users/base.html' %}
 
-{% block title %}Add category{% endblock %}
+{% block title %}Добавление категории{% endblock %}
 
 {% block content %}
-    <h1>Form for add a new category</h1>
+    <h1>Добавление категории</h1>
 
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save new category</button>
+        <button type="submit">Сохранить</button>
     </form>
 
     <br>
-    <a href="{% url 'users:home' %}">Back to home</a>
+    <a href="{% url 'finans:home' %}">Назад</a>
 {% endblock %}

@@ -7,17 +7,28 @@
         {% csrf_token %}
         <button type="submit">Exit from account</button>
     </form>
-    <h1>Hi {{ request.user }}! Here is the history of your payments</h1>
+    <h1>История ваших платежей</h1>
     <ul>
         {% for payment in payments %}
             <li>
-                <h1>{{ payment.category.color }}{{ payment.category.name }}</h1>
-                <p>{{ payment.date_done }}</p>
-                <a href="{% url 'finans:payment_details' payment.pk %}">See more</a>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="color-dot" style="background-color: {{ payment.category.color }};"></span>
+                    <span>{{ payment.category.name }}</span>
+                    <p>{{ payment.date_done }}</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <a href="{% url 'finans:payment_details' payment.pk %}">Увидеть больше</a>
+                    <form action="{% url 'finans:payment_delete' payment.pk %}" method="post" style="display: inline; margin: 0;" onsubmit="return confirm('Точно хотите удалить этот платеж?');">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: red; cursor: pointer; padding: 0; font-size: 14px;">Удалить</button>
+                    </form>
+                </div>
             </li>
         {% empty %}
             <p>You haven't done any payment</p>
         {% endfor %}
     </ul>
-    <a href="{% url 'finans:add_payment' %}">New payment?</a>
+    <a href="{% url 'finans:add_payment' %}">Новая платежка?</a>
+    <a href="{% url 'finans:add_category' %}">Новая категория платежей?</a>
+
 {% endblock %}

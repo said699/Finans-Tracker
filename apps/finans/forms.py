@@ -10,4 +10,7 @@ class AddPaymentForm(forms.ModelForm):
 class AddCategoryForm(forms.ModelForm):
     class Meta:
         model = PayCategory
-        fields = ('name', 'color')
+        fields = ['name', 'color']
+        widgets = {
+            'color': forms.TextInput(attrs={'type': 'color', 'class': 'form-control'}),
+        }
