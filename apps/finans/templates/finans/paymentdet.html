@@ -8,5 +8,7 @@
         <p>Дата выполнения: {{ payment.date_done }}</p>
         <p>Сумма: {{ payment.amount }}</p>
         <p>Валюта: {{ payment.currency }}</p>
+        <p>Запись: {{ payment.note }}</p>
         <span class="color-dot" style="background-color: {{ payment.category.color }};"></span><span>{{ payment.category.name }}</span>
+        <a href="{% url 'finans:payments' %}">Назад</a>
 {% endblock %}

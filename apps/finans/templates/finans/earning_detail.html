@@ -1,0 +1,14 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Детали дохода{% endblock %}
+
+{% block content %}
+    <h1>Информация о выбранном вами доходе</h1>
+    <div class="pay-info">
+        <p>Дата выполнения: {{ earning.date_done }}</p>
+        <p>Сумма: {{ earning.amount }}</p>
+        <p>Валюта: {{ earning.currency }}</p>
+        <p>Запись: {{ earning.note }}</p>
+        <span class="color-dot" style="background-color: {{ earning.category.color }};"></span><span>{{ earning.category.name }}</span>
+        <a href="{% url 'finans:earnings' %}">Назад</a>
+{% endblock %}

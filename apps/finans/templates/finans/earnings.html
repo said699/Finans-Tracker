@@ -1,0 +1,52 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Доходы{% endblock %}
+
+{% block content %}
+    <a href="{% url 'users:details' %}">Управление аккаунтом</a>
+    <a href="{% url 'finans:payments' %}">Управление платежами</a>
+
+    <h1>История ваших доходов</h1>
+        {% if is_paginated %}
+        <div class="pagination" style="margin-top: 20px;">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; в начало</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">назад</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">вперед</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">в конец &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+    <ul>
+        {% for earning in earnings %}
+            <li>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="color-dot" style="background-color: {{ earning.category.color }};"></span>
+                    <span>{{ earning.category.name }}</span>
+                    <p>{{ earning.date_done }}</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <a href="{% url 'finans:earning_details' earning.pk %}">Увидеть больше</a>
+                    <form action="{% url 'finans:earning_delete' earning.pk %}" method="post" style="display: inline; margin: 0;" onsubmit="return confirm('Точно хотите удалить этот доход?');">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: red; cursor: pointer; padding: 0; font-size: 14px;">Удалить</button>
+                    </form>
+                </div>
+            </li>
+        {% empty %}
+            <p>У вас нет доходов!</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'finans:add_earning' %}">Новый доход?</a>
+    <a href="{% url 'finans:earn_category_list' %}">Категории дохода</a>
+
+{% endblock %}

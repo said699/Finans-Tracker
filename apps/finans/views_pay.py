@@ -10,7 +10,7 @@ class AddCategoryView(generic.CreateView, LoginRequiredMixin):
     model = PayCategory
     template_name = 'finans/addcategory.html'
     form_class = AddCategoryForm
-    success_url = reverse_lazy('finans:home')
+    success_url = reverse_lazy('finans:payments')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -28,7 +28,7 @@ class AddPaymentView(generic.CreateView, LoginRequiredMixin):
     model = Payment
     form_class = AddPaymentForm
     template_name = 'finans/addpayment.html'
-    success_url = reverse_lazy('finans:home')
+    success_url = reverse_lazy('finans:payments')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -39,7 +39,7 @@ class AddPaymentView(generic.CreateView, LoginRequiredMixin):
         kwargs['user'] = self.request.user
         return kwargs
 
-class HomeHistoryView(generic.ListView, LoginRequiredMixin):
+class Payments(generic.ListView, LoginRequiredMixin):
     model = Payment
     template_name = 'finans/home.html'
     paginate_by = 10
@@ -58,8 +58,8 @@ def payment_delete(request, pk):
     payment = get_object_or_404(Payment, pk=pk, user=request.user)
     if request.method == 'POST':
         payment.delete()
-        return redirect('finans:home')
-    return redirect('finans:home')
+        return redirect('finans:payments')
+    return redirect('finans:payments')
 
 class ListCategory(generic.ListView, LoginRequiredMixin):
     model = PayCategory
@@ -73,6 +73,5 @@ def category_delete(request, pk):
     category = get_object_or_404(PayCategory, pk=pk, user=request.user)
     if request.method == 'POST':
         category.delete()
-        return redirect('finans:home')
-    return redirect('finans:home')
-
+        return redirect('finans:payments')
+    return redirect('finans:payments')

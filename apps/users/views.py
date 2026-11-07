@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class RegisterUserView(generic.CreateView):
     form_class = RegisterForm
     template_name = 'users/register.html'
-    success_url = reverse_lazy('finans:home')
+    success_url = reverse_lazy('finans:payments')
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -20,7 +20,7 @@ class RegisterUserView(generic.CreateView):
 class LoginUserView(LoginView):
     form_class = LoginForm
     template_name = 'users/login.html'
-    success_url = reverse_lazy('finans:home')
+    success_url = reverse_lazy('finans:payments')
 
 class AccountDetails(generic.DetailView):
     model = CustomUser
@@ -34,7 +34,7 @@ class UpdateAccount(generic.UpdateView, LoginRequiredMixin):
     model = CustomUser
     form_class = UserUpdateForm
     template_name = 'users/profile_update.html'
-    success_url = reverse_lazy('finans:home')
+    success_url = reverse_lazy('finans:payments')
 
     def get_object(self):
         return self.request.user
