@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.core.validators import RegexValidator
 from django.conf import settings
@@ -9,7 +10,13 @@ class PayCategory(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Владелец категории')
     name = models.CharField(max_length=100, verbose_name='Название категории')
     color = models.CharField(max_length=7, validators=[hex_color_validator], verbose_name='Цвет категории')
+    date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='Дата создания категории')
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        unique_together = ('user', 'name')
 
 class Payment(models.Model):
     CURRENCY_CHOICES = [

@@ -1,0 +1,17 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Редактировать профиль</h2>
+        
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Сохранить изменения</button>
+        </form>
+        
+        <a href="{% url 'finans:home' %}">Назад</a>
+    </div>
+{% endblock %}

@@ -3,11 +3,27 @@
 {% block title %}home{% endblock %}
 
 {% block content %}
-    <form action="{% url 'users:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Exit from account</button>
-    </form>
+    <a href="{% url 'users:details' %}">Управление аккаунтом</a>
     <h1>История ваших платежей</h1>
+        {% if is_paginated %}
+        <div class="pagination" style="margin-top: 20px;">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; в начало</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">назад</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">вперед</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">в конец &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
     <ul>
         {% for payment in payments %}
             <li>
@@ -25,10 +41,10 @@
                 </div>
             </li>
         {% empty %}
-            <p>You haven't done any payment</p>
+            <p>У вас нет платежей!</p>
         {% endfor %}
     </ul>
     <a href="{% url 'finans:add_payment' %}">Новая платежка?</a>
-    <a href="{% url 'finans:add_category' %}">Новая категория платежей?</a>
+    <a href="{% url 'finans:category_list' %}">Категории</a>
 
 {% endblock %}

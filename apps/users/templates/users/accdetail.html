@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <h1>Информация о вашем профиле</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Номер телефона: {{ user.phone }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Дата регистрации: {{ user.date_joined }}</p>
+    <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+    <form action="{% url 'users:delete' %}" method="post" onsubmit="return confirm('Точно хотите удалить свой аккаунт?');">
+        {% csrf_token %}
+        <button type="submit">Удалить аккаунт</button>
+    </form>
+    <a href="{% url 'users:edit' %}">Изменить</a>
+{% endblock %}

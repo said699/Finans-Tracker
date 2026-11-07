@@ -96,7 +96,6 @@ select {
     font-size: 14px;
 }
 
-/* Специальный стиль для палитры выбора цвета */
 input[type="color"] {
     border: none;
     width: 50px;
@@ -109,7 +108,7 @@ input[type="color"] {
     display: inline-block;
     width: 14px;
     height: 14px;
-    border-radius: 50%; /* Делает элемент круглым */
+    border-radius: 50%;
     flex-shrink: 0;
-    border: 1px solid rgba(0, 0, 0, 0.1); /* Тонкая рамка, чтобы светлые цвета (как белый #FFFFFF) не сливались с фоном */
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }

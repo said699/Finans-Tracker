@@ -1,0 +1,29 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Категории{% endblock %}
+
+{% block content %}
+    <h1>Управление категориями платежей<h1>
+    <h2>Список категорий:</h2>
+
+    {% for category in categories %}
+        <li>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="color-dot" style="background-color: {{ category.color }};"></span>
+                <span>{{ category.name }}</span>
+                <p>{{ category.date_created }}</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <form action="{% url 'finans:category_delete' category.pk %}" method="post" style="display: inline; margin: 0;" onsubmit="return confirm('Точно хотите удалить эту категорию?');">
+                    {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: red; cursor: pointer; padding: 0; font-size: 14px;">Удалить</button>
+                </form>
+            </div>
+        </li>
+    {% empty %}
+        <p>У вас нет категорий!</p>
+    {% endfor %}
+    <a href="{% url 'finans:home' %}">Назад</a>
+    <a href="{% url 'finans:add_category' %}">Создать категорию</a>
+
+{% endblock %}
