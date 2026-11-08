@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('bot/', include('apps.bot.urls')),
     path('statistic/', include('apps.statistic.urls')),
     path('finans/', include('apps.finans.urls')),
     path('acc/', include('apps.users.urls')),

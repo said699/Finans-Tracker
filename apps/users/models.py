@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     email = models.EmailField(max_length=200, unique=True)
     phone = models.CharField(max_length=20, blank=True, null=True, verbose_name='Номер телефона')
+    telegram_id = models.BigIntegerField(blank=True, null=True, unique=True, verbose_name='Telegram ID')
 
     def __str__(self):
         return self.username

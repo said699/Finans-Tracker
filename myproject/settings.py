@@ -27,8 +27,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'grid-thirty-mayflower.ngrok-free.dev',
+]
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'apps.bot',
     'apps.users',
     'apps.finans',
     'apps.statistic'
@@ -139,3 +143,6 @@ MAILERS = {
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+TELEGRAM_BOT_TOKEN = '9166762757:AAHTHc4VQWb_HvKik0NS1NpqI21WlZcTrVQ'
+
