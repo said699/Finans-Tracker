@@ -1,0 +1,68 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+    <a href="{% url 'finans:payments' %}">Платежи</a>
+    <a href="{% url 'finans:earnings' %}">Доходы</a>
+    <h2>Статистика за {{ month }}.{{ year }}</h2>
+
+    <form method="get">
+    <select name="year">
+        {% for y in years %}
+        <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="month">
+        {% for num, name in months %}
+        <option value="{{ num }}" {% if num == month %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Показать</button>
+    </form>
+
+    <h3>Самая частая категория</h3>
+    {% if top_pay_category %}
+        <p>Расходы: {{ top_pay_category.category__name }} ({{ top_pay_category.n }} раз)</p>
+    {% else %}
+        <p>Расходов за этот период нет.</p>
+    {% endif %}
+    {% if top_earn_category %}
+        <p>Доходы: {{ top_earn_category.category__name }} ({{ top_earn_category.n }} раз)</p>
+    {% endif %}
+
+    <h3>Потрачено за месяц</h3>
+    {% for currency, total in spent_month.items %}
+        <p>{{ currency }}: {{ total }}</p>
+    {% empty %}
+        <p>Нет данных.</p>
+    {% endfor %}
+
+    <h3>Потрачено за год</h3>
+    {% for currency, total in spent_year.items %}
+        <p>{{ currency }}: {{ total }}</p>
+    {% empty %}
+        <p>Нет данных.</p>
+    {% endfor %}
+
+    <h3>Баланс за месяц</h3>
+    {% for currency, value in balance.items %}
+        <p>{{ currency }}: {{ value }}</p>
+    {% empty %}
+        <p>Нет данных.</p>
+    {% endfor %}
+
+    <h3>Расходы по категориям</h3>
+    {% for currency, items in breakdown.items %}
+    <h4>{{ currency }}</h4>
+    <ul>
+        {% for item in items %}
+        <li style="color: {{ item.color }}">{{ item.name }}: {{ item.total }} ({{ item.count }} зап.)</li>
+        {% endfor %}
+    </ul>
+    {% empty %}
+        <p>Нет данных.</p>
+    {% endfor %}
+{% endblock %}

@@ -5,6 +5,8 @@
 {% block content %}
     <a href="{% url 'users:details' %}">Управление аккаунтом</a>
     <a href="{% url 'finans:earnings' %}">Управление доходами</a>
+    <a href="{% url 'statistic:statistics' %}">Статистика</a>
+
     <h1>История ваших платежей</h1>
         {% if is_paginated %}
         <div class="pagination" style="margin-top: 20px;">

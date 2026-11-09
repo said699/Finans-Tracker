@@ -146,3 +146,5 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 TELEGRAM_BOT_TOKEN = '9166762757:AAHTHc4VQWb_HvKik0NS1NpqI21WlZcTrVQ'
 
+LOGIN_URL = "login"               
+LOGIN_REDIRECT_URL = "finans:payments"

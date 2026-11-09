@@ -34,7 +34,7 @@ NOT_AUTH = (False, "Сначала войди или зарегистрируй�
 MAX_LOGIN_ATTEMPTS = 5
 NO_NOTE = "Без описания"  # на сайте описание обязательно
 
-# ---------- Кнопки меню ----------
+#Кнопки меню
 
 BTN_PAY, BTN_EARN = "➖ Расход", "➕ Доход"
 BTN_PAYS, BTN_EARNS = "📋 Расходы", "📋 Доходы"
@@ -120,7 +120,7 @@ COLOR_KB = kb(
 )
 
 
-# ---------- Вспомогательное ----------
+#Вспомогательное
 
 def db(func):
     """sync -> async + закрытие старых соединений Django."""
@@ -204,7 +204,7 @@ def tx_label(k, t):
     return f"{k['sign']}{t.amount} {t.currency} · {cat} · {timezone.localtime(t.date_done):%d.%m.%Y}"
 
 
-# ---------- Состояния диалогов ----------
+#Состояния диалогов
 
 class Reg(StatesGroup):
     username = State()
@@ -230,7 +230,7 @@ class AddCat(StatesGroup):
     color = State()
 
 
-# ---------- Работа с БД ----------
+#Работа с БД
 
 @db
 def linked_username(tg_id):
@@ -401,7 +401,7 @@ def delete_transaction(kind, tg_id, pk):
     return (True, "Запись удалена.") if deleted else (False, "Запись не найдена.")
 
 
-# ---------- Меню, помощь, отмена ----------
+#Меню, помощь, отмена
 
 async def menu(message: types.Message, text, parse_mode=None):
     logged_in = bool(await linked_username(message.from_user.id))
@@ -428,9 +428,7 @@ async def cb_cancel(cb: CallbackQuery, state: FSMContext):
     await show(cb, "Отменено.")
 
 
-# ---------- Кнопки главного меню ----------
-# Зарегистрированы ДО обработчиков состояний, чтобы нажатие кнопки прерывало любой диалог.
-
+#Кнопки главного меню
 @dp.message(F.text.in_(MENU_ACTIONS))
 async def menu_action(message: types.Message, state: FSMContext):
     await state.clear()
@@ -477,7 +475,7 @@ async def cmd_logout(message: types.Message, state: FSMContext):
     await menu(message, ("✅ " if ok else "❌ ") + text)
 
 
-# ---------- Регистрация ----------
+#Регистрация
 
 @dp.message(Reg.username, F.text)
 async def reg_username(message: types.Message, state: FSMContext):
@@ -532,7 +530,6 @@ async def reg_password(message: types.Message, state: FSMContext):
     await menu(message, ("✅ " if status == "ok" else "❌ ") + text)
 
 
-# ---------- Вход ----------
 
 @dp.message(Login.username, F.text)
 async def login_username(message: types.Message, state: FSMContext):
@@ -560,8 +557,6 @@ async def login_password(message: types.Message, state: FSMContext):
     await state.update_data(attempts=attempts)
     await message.answer(f"❌ {text}\nПопробуй пароль ещё раз:", reply_markup=CANCEL_KB)
 
-
-# ---------- Добавление расхода / дохода кнопками ----------
 
 async def start_add_tx(target, state: FSMContext, kind):
     ok, cats = await list_categories(kind, target.from_user.id)
@@ -784,7 +779,6 @@ async def cat_color_text(message: types.Message, state: FSMContext):
     await finish_cat(message, state, color)
 
 
-# ---------- Быстрый ввод: -100 USD Еда Обед ----------
 
 TX_START = r"^[+-]\s?\d"
 TX_RE = re.compile(
@@ -794,7 +788,6 @@ TX_RE = re.compile(
 )
 
 
-# StateFilter(None): не перехватывать ввод во время диалогов (телефон может начинаться с "+")
 @dp.message(StateFilter(None), F.text.regexp(TX_START))
 async def handle_transaction(message: types.Message):
     m = TX_RE.match(message.text.strip())
@@ -825,8 +818,6 @@ async def handle_transaction(message: types.Message):
         category_name=(quoted or single).strip(),
     ))
 
-
-# ---------- Устаревшие кнопки (должен быть последним!) ----------
 
 @dp.callback_query()
 async def cb_stale(cb: CallbackQuery):
